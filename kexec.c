@@ -184,7 +184,7 @@ kexec_load_ramdisk(char *path) {
 	sz = (size_t) ftell(f);
 	fseek(f, 0, SEEK_SET);
 
-	ramdisk_start = ALIGNUP((kernel.base + kernel.size), 0x1000ull) * 2;
+	ramdisk_start = ALIGNUP(zp->setup_header.initrd_addr_max - sz, 0x1000ull);
 
 	if ((ramdisk_start + sz) > memory.size) {
 		/* not enough memory */
